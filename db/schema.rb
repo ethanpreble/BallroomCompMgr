@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151103012051) do
+ActiveRecord::Schema.define(version: 20151103014431) do
+
+  create_table "partnerships", force: :cascade do |t|
+    t.integer  "lead_id",    null: false
+    t.integer  "follow_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "partnerships", ["follow_id"], name: "index_partnerships_on_follow_id"
+  add_index "partnerships", ["lead_id", "follow_id"], name: "index_partnerships_on_lead_id_and_follow_id", unique: true
+  add_index "partnerships", ["lead_id"], name: "index_partnerships_on_lead_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
